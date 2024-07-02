@@ -142,11 +142,13 @@ class RedundancyTests: RulesTests {
         struct Foo {
             fileprivate var foo = "foo"
             var bar = "bar"
+            var baz = "baz"
         }
         """
         let output = """
         struct Foo {
             var bar = "bar"
+            var baz = "baz"
         }
         """
         testFormatting(for: input, output, rule: FormatRules.unusedFileprivate)
