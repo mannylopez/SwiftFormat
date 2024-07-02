@@ -137,6 +137,23 @@ class RedundancyTests: RulesTests {
         testFormatting(for: input, rule: FormatRules.redundantFileprivate, options: options)
     }
 
+    func testRemoveUnusedFilePrivate() {
+        let input = """
+        struct Foo {
+            fileprivate var foo = "foo"
+            var bar = "bar"
+            var baz = "baz"
+        }
+        """
+        let output = """
+        struct Foo {
+            var bar = "bar"
+            var baz = "baz"
+        }
+        """
+        testFormatting(for: input, output, rule: FormatRules.unusedFileprivate)
+    }
+
     func testFileprivateVarChangedToPrivateIfNotAccessedFromAnotherType() {
         let input = """
         struct Foo {
