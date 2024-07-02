@@ -5140,6 +5140,23 @@ public struct _FormatRules {
         }
     }
 
+    public let unusedFileprivate = FormatRule(
+        help: "Remove unused fileprivate"
+    ) { formatter in
+
+        let parsedDeclarations = formatter.parseDeclarations()
+
+        formatter.forEach(.keyword("fileprivate")) { i, _ in
+            // 1. Find name of fileprivate property
+            if let nameIndex = formatter.index(of: .identifier, after: i) {
+                let propertyName = formatter.tokens[nameIndex]
+                print(propertyName)
+                // 2. checkIfPropertyIsUsed(propertyName) -> Bool
+                // 3. If !checkIfPropertyIsUsed, removeUnusedProperty
+            }
+        }
+    }
+
     /// Replace `fileprivate` with `private` where possible
     public let redundantFileprivate = FormatRule(
         help: "Prefer `private` over `fileprivate` where equivalent."
